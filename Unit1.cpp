@@ -61,8 +61,18 @@ __fastcall TForm1::TForm1(TComponent* Owner)
                         break;// If there is a "-" in the line with the names of the satellites, then abort the operation
                 if(name[i] >= 'A' && name[i] <= 'Z') {
                         index++;
-                        out << name[i] << endl;//this condition gives out only the letters of the satellites
+                        //out << name[i] << endl;//this condition gives out only the letters of the satellites
                 }
+                // 6 Let's add a condition so that the names of satellites with numbers can be read in full
+                if (name[i] !=' ') {
+                        Sputnik[index] = Sputnik[index] + name[i]; // the condition checks that there are no spaces in our string
+                }
+                //out<< name[i] << endl;
+        }
+        // 7 Output the second line
+        if(index != countSputnik -1) {
+                getline(in,name);//считываем вторую строку
+                out<< name << endl;//выводим резлуьтат
         }
 }
 //---------------------------------------------------------------------------
