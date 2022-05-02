@@ -37,8 +37,10 @@ __fastcall TForm1::TForm1(TComponent* Owner)
         vector <string> allSputnik;
         int index=-1;
         string tempName = "";
-        //4 - 4 epochs (time 0:00-1:30):
-        for(int i=0; i<4; i++){
+        //15 4 epochs (time 0:00-1:30):
+        //for(int i=0; i<4; i++){
+        //16 Let's try to output satellite data for all epochs. Just adjust the cycle:
+        for(int i=0; i<; i++){        
                 in >> temp;
                 in >> temp;
                 in >> temp;
@@ -92,10 +94,35 @@ __fastcall TForm1::TForm1(TComponent* Owner)
                 }
                 info.push_back(tempVector);
                 for(int i = 0; i<allSputnik.size(); i++) {
-                        double dalnost;
+                        /*double dalnost;
                         in >>  dalnost;
                         in >>  dalnost;
-                        getline (in,name);
+                        getline (in,name);*/
+                        // 17 Let's try to output satellite data for all epochs. Just adjust the cycle:
+                        double dalnost=0;
+                        string b = "";
+                        getline (in, b);//we read all the lines where there is data on the pseudo-distances of our satellites in all epochs
+                        a ="";
+                        if(b.size()>=30){
+                                a=b.substr(17,13);//we select exactly the data that we need. In our case, we read the data of the second column. In the future, we will need this column to solve the main task. but our task so far is simply to output all the satellites and sort the pseudo-modality data for it
+                        }
+                        int tochka=-1;
+                        int chislo=0;
+                        for (int i=0; i<a.size(); i++){
+                                if (a[i]>='0' && a[i]<='9'){
+                                        dalnost = dalnost *10 + (a[i]-'0');
+                                }
+                                else {
+                                        if(a[i]== '.') {
+                                                tochka=i;
+                                        }
+                                }
+                        }
+                        if(tochka != -1){
+                                chislo = a.size()-1 - tochka;
+                                chislo = (int) pow(10, (double)chislo);
+                                dalnost=dalnost/chislo;
+                        }
                         getline (in,name);
                         index=-1;
                         for(int j=0; j<Sputnik.size(); j++) {
