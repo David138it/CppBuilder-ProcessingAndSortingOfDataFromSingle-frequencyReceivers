@@ -71,7 +71,7 @@ __fastcall TForm1::TForm1(TComponent* Owner)
         }
         // 7 Output the second line
         //index - where the array is written to:
-        if(index != countSputnik -1) {
+        if(index != countSputnik-1) {
                 getline(in,name);//считываем вторую строку
                 //out<< name << endl;//выводим резлуьтат
                 // 8 Print the letters of the satellites in the column:
@@ -85,9 +85,14 @@ __fastcall TForm1::TForm1(TComponent* Owner)
                         // removing spaces:
                         if (name[i] !=' '){
                                 Sputnik[index] = Sputnik[index] + name[i];
-                                out << name[i] << endl;// output all characters in the string except spaces
+                                //out << name[i] << endl;// output all characters in the string except spaces
                         }
                 }
         }
+        // 10 output all satellites in a column:
+        for(int i=0; i<countSputnik; i++){
+                out << Sputnik[i] << endl;
+        }
+        delete [] Sputnik;
 }
 //---------------------------------------------------------------------------
