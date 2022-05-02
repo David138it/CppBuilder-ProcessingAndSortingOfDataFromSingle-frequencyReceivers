@@ -22,15 +22,31 @@ __fastcall TForm1::TForm1(TComponent* Owner)
         string a;
         while(true) {
                 getline (in,a); //reading the first line in the file
-                out<<a<<endl;
-                // we give a condition that when the program sees a string with the value END OF HEADER, the program is interrupted:
+                //out<<a<<endl;
+                // 1 we give a condition that when the program sees a string with the value END OF HEADER, the program is interrupted:
                 if(a == "                                                            END OF HEADER") {
                         break;
                 }
         } 
-        // Print the following line after END OF HEADER: 
+        // 2 Print the following line after END OF HEADER: 
         string name;
-        getline(in,name);// read the following line
-        out<<name<<endl;// output this line
+        /*getline(in,name);// read the following line
+        out<<name<<endl;// output this line*/
+        // 3 Output the number of satellites:
+        int temp;
+        double temp2;
+        in >> temp;// reading the time - 15
+        in >> temp;// reading the time - 5
+        in >> temp;// reading the time - 18
+        in >> temp;// reading the time - 0
+        in >> temp;// reading the time - 0
+        in >> temp2;// reading the status of the satellite - 0.0000000
+        in >> temp;// reading the status of the satellite - 1
+        int countSputnik;
+        in >> countSputnik; // reading the number of satellites - 19
+        out<< countSputnik << endl; // output the number of satellites
+        // output the names of the satellites in the line:
+        getline(in,name);// we read the remaining line with the names of the satellites
+        out<< name;
 }
 //---------------------------------------------------------------------------
