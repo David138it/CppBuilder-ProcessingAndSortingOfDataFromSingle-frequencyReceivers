@@ -32,7 +32,9 @@ __fastcall TForm1::TForm1(TComponent* Owner)
         int countSputnik;
         vector <vector <double> > info;
         vector <double> tempVector;
-        tempVector.resize(100);
+        // 17: 
+        //tempVector.resize(100);
+        tempVector.resize(55);
         vector <string> Sputnik;
         vector <string> allSputnik;
         int index=-1;
@@ -140,16 +142,21 @@ __fastcall TForm1::TForm1(TComponent* Owner)
                         }
                 }
         }
+        out << endl;
         for(int j=0; j<Sputnik.size(); j++) {
                 out << setw(13) << Sputnik[j] << " ";
         }
-        out << endl;
+        /*out << endl;
         for(int i=0; i<info.size(); i++) {
                 for(int j=0; j<info[i].size(); j++) {
                         out << setw(13) << setprecision(13) << info[i][j] << " ";
                 }
                 out << endl;
         }
-
+        17 we will display data for two satellites on the screen:*/
+        out << endl;
+        for(int i=0; i<info.size(); i++){
+                out << setw(13) << setprecision(13) << info[i][0] << setw(14) << info[i][1] << endl;//считываем данные двух спутников
+        }
 }
 //---------------------------------------------------------------------------
