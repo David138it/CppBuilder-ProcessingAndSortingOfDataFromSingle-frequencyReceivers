@@ -3,7 +3,7 @@
 <p><strong>Task</strong>:<br />
 Create a program in C++ that allows the data received from the receiver from RINEX files in text format to obtain the pseudodality difference (this is the distance between the satellite and the receiver obtained by multiplying the value of the speed of light with the time delay in signal propagation measured by the satellite and receiver clocks) of the satellite and sorts the pseudodalities for each navigation to the satellite to simplify further processing. Here's what the file looks like irkj1380.txt , in which you need to sort the pseudodality for each navigation satellite. We took this data from the base station.<br />
 <strong>Task</strong>:<br />
-It was we who deduced the coordinates X,Y,Z and the name of the satellite. But now I need to output data only X for the first satellite.
+Similarly, we output data only for Y and Z. Just need to change the code x to y or z.<br />Let's try to calculate the pseudo-modality data received from my receiver, the file name is called sirfrin1.txt . Here we already see only two data for satellites. the first is the range, which just needs to be sorted by each navigation satellite, and the second is, apparently, some satellite signals that we are not particularly interested in. And the epoch here does not begin from scratch, as we see, but from 41 minutes 23 seconds. This also needs to be taken into account when you need to compare this data with geometric data.
 </p>
 <p><strong>Manual</strong>:</p>
 <ol>
