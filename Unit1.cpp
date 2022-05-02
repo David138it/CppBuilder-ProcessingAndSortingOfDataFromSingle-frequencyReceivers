@@ -46,6 +46,10 @@ __fastcall TForm1::TForm1(TComponent* Owner)
         int countSputnik;
         in >> countSputnik; // reading the number of satellites - 19
         out<< countSputnik << endl; // output the number of satellites
+        //13  output pseudodalities for each satellite:
+        vector <vector <double> > info;// satellite distance (range)
+        vector <double> tempVector;
+        tempVector.resize(100);// the dimension of the array, let it be so far that 100
         // 4 output the names of the satellites in the line:
         getline(in,name);// we read the remaining line with the names of the satellites
         //out<< name << endl;
@@ -56,6 +60,8 @@ __fastcall TForm1::TForm1(TComponent* Owner)
                 Sputnik[i] = "";
         }
         //reading the first line:*/
+        // 13:
+        vector <string> Sputnik;
         /* 12 we have deduced all pseudodalities for each satellite, but only for the first epoch (time is 0:0). 
         To calculate for each epoch, let's redo the program using vectors. 
         First, let's also try to count and output the names of the satellites for the first epoch:*/
@@ -83,6 +89,12 @@ __fastcall TForm1::TForm1(TComponent* Owner)
                 }
                 //out<< name[i] << endl;
         }
+        // 13 :
+        if(tempName != "") {                
+                allSputnik.push_back(tempName);
+                tempName="";
+        }
+        tempName="";
         // 7 Output the second line
         //index - where the array is written to:
         if(index != countSputnik-1) {
@@ -109,13 +121,20 @@ __fastcall TForm1::TForm1(TComponent* Owner)
                                 tempName = tempName + name[i];
                         }
                 }
+                // 13:
+                //out<<name<<endl;
         }
+        // 13:
+        if(tempName != "") {
+                allSputnik.push_back(tempName);
+                tempName="";            
+        }   
         // 10 output all satellites in a column:
-        for(int i=0; i<countSputnik; i++){
+        /*13 for(int i=0; i<countSputnik; i++){
                 //out << Sputnik[i] << endl;
                 // 12
                 out << allSputnik[i] << endl;
-        }
+        }*/
         /*delete [] Sputnik;
         // 11 It is necessary to output pseudodalities for one/the first epoch (time - 0:0)It is necessary to output pseudodalities for one/the first epoch (time - 0:0)
         double *information = new double [countSputnik];
@@ -127,5 +146,124 @@ __fastcall TForm1::TForm1(TComponent* Owner)
         for(int i=0; i<countSputnik; i++){
                 out << information[i] << endl;
         }*/
+        // 13:
+        info.push_back(tempVector);
+        for(int i = 0; i<allSputnik.size(); i++) {
+                double dalnost;
+                in >>  dalnost;//reads each element (19 elements), in the end it will count only 3 lines
+                in >>  dalnost;//reads every second element
+                getline (in,name);//reads from the 3rd column
+                getline (in,name);//reads the second line
+                // sorting each element for satellites:
+                index=-1;
+                for(int j=0; j<Sputnik.size(); j++) {
+                        if(allSputnik[i] == Sputnik[j]) {
+                                index = j;
+                                break;
+                        }
+                }
+                if(index == -1) {
+                        Sputnik.push_back(allSputnik[i]);
+                        info[info.size()-1][Sputnik.size()-1] = dalnost;
+                }
+                else {
+                        info[info.size()-1][index] = dalnost;
+                }
+        }
+        //out << endl;
+        /* 14
+        for(int j=0; j<Sputnik.size(); j++) {
+                out << Sputnik[j] << " ";//we display satellites on the screen
+        }
+        out << endl;
+        for(int i=0; i<info.size(); i++) {
+                for(int j=0; j<info[i].size(); j++) {
+                        out << setprecision(12) << info[i][j] << " ";//we output the distance (range) for the corresponding satellite (there will be a lot of zeros, because we added the value 100 to the dimension of the array at the very beginning)
+                }
+                //out << endl;
+        }*/
+        // 14 let's try for both the first and the second epoch (time: 0:00 - 0:30) to do the following operations
+        in >> temp;
+        in >> temp;
+        in >> temp;
+        in >> temp;
+        in >> temp;
+        in >> temp2;
+        in >> temp;
+        in >> countSputnik;
+        out << countSputnik << endl;
+        getline(in,name);
+        allSputnik.resize(0);
+        index=-1;
+        tempName = "";
+        for(int i=0; i< name.size(); i++) {
+                if(name[i] == '-')
+                        break;
+                if(name[i] >= 'A' && name[i] <= 'Z') {
+                        index++;
+                        if(tempName != "") {
+                               allSputnik.push_back(tempName);
+                               tempName="";
+                        }
+                }
+                if (name[i] != ' '){
+                        tempName = tempName + name[i];
+                }
+        }
+        if(tempName != "") {
+                allSputnik.push_back(tempName);
+                tempName="";
+        }
+        tempName="";
+        if(index <= countSputnik-1) {
+                getline(in,name);
+                for(int i=0; i<name.size(); i++){
+                        if(name[i] >= 'A' && name[i] <= 'Z') {
+                        index++;
+                        if(tempName != "") {
+                                allSputnik.push_back(tempName);
+                                tempName="";
+                        }
+                }
+                if (name[i] != ' '){
+                        tempName = tempName + name[i];
+                }
+        }
+        if(tempName != "") {
+                allSputnik.push_back(tempName);
+                tempName="";
+        }
+        info.push_back(tempVector);
+        for(int i = 0; i<allSputnik.size(); i++) {
+                 double dalnost;
+                 in >>  dalnost;
+                 in >>  dalnost;
+                 getline (in,name);
+                 getline (in,name);
+                 index=-1;
+                 for(int j=0; j<Sputnik.size(); j++) {
+                        if(allSputnik[i] == Sputnik[j]) {
+                                index = j;
+                                break;
+                        }
+                }
+                if(index == -1) {
+                        Sputnik.push_back(allSputnik[i]);
+                        info[info.size()-1][Sputnik.size()-1] = dalnost;
+                }
+                else {
+                        info[info.size()-1][index] = dalnost;
+                }
+        }
+        for(int j=0; j<Sputnik.size(); j++) {
+                out << setw(13) << Sputnik[j] << " ";
+        }
+        out << endl;
+        for(int i=0; i<info.size(); i++) {
+                for(int j=0; j<info[i].size(); j++) {
+                        out << setw(13) << setprecision(13) << info[i][j] << " ";
+                }
+                out << endl;
+        }
 }
 //---------------------------------------------------------------------------
