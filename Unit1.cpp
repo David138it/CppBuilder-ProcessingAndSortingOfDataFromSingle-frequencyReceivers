@@ -16,6 +16,7 @@ TForm1 *Form1;
 __fastcall TForm1::TForm1(TComponent* Owner)
         : TForm(Owner)
 {
+        using namespace std;
         ifstream in ("irkj1380.txt");
         ofstream out ("out.txt");
         // Let's try in the file irkj1380.txt output all information up to the END OF HEADER in out.txt:
@@ -94,5 +95,15 @@ __fastcall TForm1::TForm1(TComponent* Owner)
                 out << Sputnik[i] << endl;
         }
         delete [] Sputnik;
+        // 11 It is necessary to output pseudodalities for one/the first epoch (time - 0:0)It is necessary to output pseudodalities for one/the first epoch (time - 0:0)
+        double *information = new double [countSputnik];
+        for(int i=0; i<countSputnik; i++){
+                in >> information[i];// reads all the information in one epoch (counts only 3 lines, since 19 satellites are specified in the condition, the program perceived here as separate information (pseudodalities, frequency signals, etc.), but not by satellite names)
+                getline (in,name);// here it reads only the first information, and then goes to a new line
+                getline (in,name);// this is a line to go to a new line, that is, reads through one line
+        }
+        for(int i=0; i<countSputnik; i++){
+                out << information[i] << endl;
+        }
 }
 //---------------------------------------------------------------------------
