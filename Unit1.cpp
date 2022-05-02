@@ -4,7 +4,6 @@
 #include <vector>
 #include <vcl.h>
 #pragma hdrstop
-
 #include "Unit1.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
@@ -15,18 +14,14 @@ __fastcall TForm1::TForm1(TComponent* Owner)
         : TForm(Owner)
 {
         ifstream in ("igr18451.txt");
-        ofstream out ("out.txt");
-//////// пропускаем до ORB:CMB CLK:CMB
+        ofstream out ("output.txt");
         string lishniaiaStroka;
         for (int i=0; i<22; i++)
         {
                 getline (in,lishniaiaStroka);
         }
-//////// считываем строчку для первой эпохи
         string epoha;
         getline(in,epoha);
-        //out << epoha << endl;
-//////// второй шаг: выводим координаты для одного спутника, для всех эпох
         string sputnik;
         string signali;
         string e;
@@ -34,20 +29,19 @@ __fastcall TForm1::TForm1(TComponent* Owner)
         string y;
         string z;
         vector <string> infa;
-        for (int j=0; j<96; j++){ // всего 96 эпох
-                infa.resize(32); //всего 32 спутника
+        for (int j=0; j<96; j++){
+                infa.resize(32);
                 for (int i=0; i<infa.size(); i++){
                         in >> sputnik >> x >> y >> z;
                         getline (in, signali);
-                        if(sputnik == "PG04") { //вводим название спутника
-                                out << sputnik << " " << x << " " << y << " " << z << " " << endl;
-                                /*out << x << endl;*/
-                                /*out << y;
-                                out << z; */
+                        if(sputnik == "PG01") {
+                                /*out << sputnik << " " << x << " " << y << " " << z << " " << endl;*/
+                                out << x << endl;
+                /*out << y << endl;
+                out << z << endl;*/
                         }
                 }
                 getline (in, e);
         }
 }
 //---------------------------------------------------------------------------
- 
