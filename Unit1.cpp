@@ -79,12 +79,15 @@ __fastcall TForm1::TForm1(TComponent* Owner)
                 for(int i=0; i<name.size(); i++){//name - line
                         if(name[i] >= 'A' && name[i] <= 'Z') {
                                 index++;
-                                out << name[i] << endl;//we output only letters
+                                //out << name[i] << endl;//we output only letters
+                        }
+                        // 9 print by letters and numbers. if we see a space, then the operation should not be performed:
+                        // removing spaces:
+                        if (name[i] !=' '){
+                                Sputnik[index] = Sputnik[index] + name[i];
+                                out << name[i] << endl;// output all characters in the string except spaces
                         }
                 }
         }
-
-
-
 }
 //---------------------------------------------------------------------------
