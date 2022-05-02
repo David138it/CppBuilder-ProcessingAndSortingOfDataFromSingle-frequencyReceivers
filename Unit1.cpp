@@ -48,25 +48,38 @@ __fastcall TForm1::TForm1(TComponent* Owner)
         out<< countSputnik << endl; // output the number of satellites
         // 4 output the names of the satellites in the line:
         getline(in,name);// we read the remaining line with the names of the satellites
-        out<< name << endl;
-        // 5 we need to make sure that the string G01G04G11G12G14G18G22G24G25G31G32R05 is read by letters, that is, we create a dynamic array with a pointer: 
+        //out<< name << endl;
+        /*12// 5 we need to make sure that the string G01G04G11G12G14G18G22G24G25G31G32R05 is read by letters, that is, we create a dynamic array with a pointer: 
         string *Sputnik = new string [countSputnik];
         // this is a loop that runs through the name variable, in which you need to pull out the names of the satellites:
         for(int i=0; i<countSputnik; i++){
                 Sputnik[i] = "";
         }
-        //reading the first line:
+        //reading the first line:*/
+        /* 12 we have deduced all pseudodalities for each satellite, but only for the first epoch (time is 0:0). 
+        To calculate for each epoch, let's redo the program using vectors. 
+        First, let's also try to count and output the names of the satellites for the first epoch:*/
+        vector <string> allSputnik; // massive vector with satellite names
         int index=-1;
-        for(int i=0; i< name.size(); i++) {
+        // 12:
+        string tempName = "";
+        for(int i=0; i<name.size(); i++) {
                 if(name[i] == '-')
                         break;// If there is a "-" in the line with the names of the satellites, then abort the operation
                 if(name[i] >= 'A' && name[i] <= 'Z') {
                         index++;
                         //out << name[i] << endl;//this condition gives out only the letters of the satellites
+                        // 12:
+                        if(tempName != "") {
+                                allSputnik.push_back(tempName);
+                                tempName="";
+                        }
                 }
                 // 6 Let's add a condition so that the names of satellites with numbers can be read in full
                 if (name[i] !=' ') {
-                        Sputnik[index] = Sputnik[index] + name[i]; // the condition checks that there are no spaces in our string
+                        // Sputnik[index] = Sputnik[index] + name[i]; // the condition checks that there are no spaces in our string
+                        // 12:
+                        tempName = tempName + name[i];
                 }
                 //out<< name[i] << endl;
         }
@@ -81,20 +94,29 @@ __fastcall TForm1::TForm1(TComponent* Owner)
                         if(name[i] >= 'A' && name[i] <= 'Z') {
                                 index++;
                                 //out << name[i] << endl;//we output only letters
+                                // 12:
+                                if(tempName != "") {
+                                        allSputnik.push_back(tempName);
+                                        tempName="";
+                                }
                         }
                         // 9 print by letters and numbers. if we see a space, then the operation should not be performed:
                         // removing spaces:
                         if (name[i] !=' '){
-                                Sputnik[index] = Sputnik[index] + name[i];
+                                //Sputnik[index] = Sputnik[index] + name[i];
                                 //out << name[i] << endl;// output all characters in the string except spaces
+                                //12: 
+                                tempName = tempName + name[i];
                         }
                 }
         }
         // 10 output all satellites in a column:
         for(int i=0; i<countSputnik; i++){
-                out << Sputnik[i] << endl;
+                //out << Sputnik[i] << endl;
+                // 12
+                out << allSputnik[i] << endl;
         }
-        delete [] Sputnik;
+        /*delete [] Sputnik;
         // 11 It is necessary to output pseudodalities for one/the first epoch (time - 0:0)It is necessary to output pseudodalities for one/the first epoch (time - 0:0)
         double *information = new double [countSputnik];
         for(int i=0; i<countSputnik; i++){
@@ -104,6 +126,6 @@ __fastcall TForm1::TForm1(TComponent* Owner)
         }
         for(int i=0; i<countSputnik; i++){
                 out << information[i] << endl;
-        }
+        }*/
 }
 //---------------------------------------------------------------------------
